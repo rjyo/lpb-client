@@ -1,0 +1,12 @@
+{
+    "name": "lpb-client"
+  , "version": "0.0.1"
+  , "description": "Client API to communicate with Letterpress Battle Server API"
+  , "keywords": ["letterpress"]
+  , "author": "Rakuraku Jyo <jyo.rakuraku@gmail.com>"
+  , "dependencies": {
+        "restler": ""
+    }
+  , "main": "lib"
+  , "engines": { "node": "0.6.x" }
+}
