@@ -20,45 +20,51 @@ The other is `LPBConsole`, which is a interactive to play the game in console.
 
 ### Example
 
-	var program = require('commander')
-	  , lpb = require('lpb-client');
-	
-	program
-	  .version('0.0.1')
-	  .option('-s, --server [url]', 'Base URL of the server')
-	  .option('-p, --player [player]', 'Unique player ID')
-	  .parse(process.argv);
-	
-	...
-	
-	if (program.server && program.player) {
-	  c = lpb.LPBConsole(program.server, program.player);
-	
-	  // logic to handle the move
-	  function takeMove() {
-	  	...
-	  }
-	
-	  // logic to init the game board
-	  function prepareBoard(data) {
-	  	...
-	  }
-	
-	  // logic to init the game board
-	  function applyMove(data) {
-	  	...
-	  }
+[An runnable example](https://github.com/rjyo/letterpress-solver/blob/master/c.js) can be found in Letterpress Solver project.
 
-	  c.on('join', prepareBoard);
-	
-	  c.on('ourmove', takeMove);
-	
-	  c.on('theirmove', function(move) {
-	    applyMove();
-	    c.emit('ourmove');
-	  });
-	
-	  c.start();
-	} else {
-	  program.outputHelp();
-	}
+The main concept is like below:
+
+```javascript
+var program = require('commander')
+  , lpb = require('lpb-client');
+
+program
+  .version('0.0.1')
+  .option('-s, --server [url]', 'Base URL of the server')
+  .option('-p, --player [player]', 'Unique player ID')
+  .parse(process.argv);
+
+...
+
+if (program.server && program.player) {
+  c = lpb.LPBConsole(program.server, program.player);
+
+  // logic to handle the move
+  function takeMove() {
+  	...
+  }
+
+  // logic to init the game board
+  function prepareBoard(data) {
+  	...
+  }
+
+  // logic to init the game board
+  function applyMove(data) {
+  	...
+  }
+
+  c.on('join', prepareBoard);
+
+  c.on('ourmove', takeMove);
+
+  c.on('theirmove', function(move) {
+    applyMove();
+    c.emit('ourmove');
+  });
+
+  c.start();
+} else {
+  program.outputHelp();
+}
+```
